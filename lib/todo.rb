@@ -52,9 +52,10 @@ class Todo
     print "Which todo have you finished?"
     x = get_input.to_i - 1
     current = self.todos[x]
-    "get_input,no\n".gsub("no", "yes")
-    #[current] << [done]
+    @todos[x][1] = "yes"
+    [current] << [x]
   end
+
 
 
   def todos

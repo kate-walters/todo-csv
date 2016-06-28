@@ -6,7 +6,7 @@ class Todo
 
   def initialize(file_name)
     @file_name = file_name #Don't touch this line or var
-    # You will need to read from your CSV here and assign them to the @todos variable. make sure headers are set to true
+    #You will need to read from your CSV here and assign them to the @todos variable. make sure headers are set to true
     @todos = CSV.read(@file_name, {headers: true})
   end
 
@@ -43,10 +43,19 @@ class Todo
   end
 
   def add_todo
+    puts "Name of Todo > "
+    input = get_input
+    self.todos.push("#{input},no\n")
   end
 
   def mark_todo
+    print "Which todo have you finished?"
+    x = get_input.to_i - 1
+    current = self.todos[x]
+    "get_input,no\n".gsub("no", "yes")
+    #[current] << [done]
   end
+
 
   def todos
     @todos

@@ -20,13 +20,15 @@ class Todo
 
       puts
       puts "What would you like to do?"
-      puts "1) Exit 2) Add Todo 3) Mark Todo As Complete"
+      puts "1) Exit 2) Add Todo 3) Mark Todo As Complete 4) Edit 5) Delete"
       print " > "
       action = get_input.to_i
       case action
       when 1 then exit
       when 2 then add_todo
       when 3 then mark_todo
+      when 4 then edit_todo
+      when 5 then delete_todo
       else
         puts "\a"
         puts "Not a valid choice"
@@ -37,15 +39,18 @@ class Todo
   def view_todos
     puts "Unfinished"
     @todos.each_with_index do |todo, index|
-      puts "#{index + 1}) #{todo["name"]}"
+      puts "#{index + 1} #{todo[0]}" if todo[1] == "no"
     end
     puts "Completed"
+    @todos.each_with_index do |todo, index|
+      puts "#{index + 1} #{todo[0]}" if todo[1] == "yes"
+    end
   end
 
   def add_todo
     puts "Name of Todo > "
-    input = get_input
-    self.todos.push("#{input},no\n")
+    @todos.push(get_input,"no")
+    view_todos
   end
 
   def mark_todo
@@ -56,7 +61,20 @@ class Todo
     [current] << [x]
   end
 
+  def edit_todo
+    print "Which todo do you need to edit?"
+    x = get_input.to_i - 1
+    edit = self.todos[x].map
+    @todos[edit] = get_input
+    [edit] << [x]
+  end
 
+  def delete_todo
+    print "Which todo do you need to delete?"
+    x = get_input.to_i - 1
+    delete = self.todos[x].delete
+    [delete] << [x]
+  end
 
   def todos
     @todos

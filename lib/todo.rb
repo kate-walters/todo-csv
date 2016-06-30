@@ -49,7 +49,7 @@ class Todo
 
   def add_todo
     puts "Name of Todo > "
-    @todos.push(get_input,"no")
+    @todos.push([get_input,"no"])
     view_todos
   end
 
